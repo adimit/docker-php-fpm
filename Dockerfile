@@ -69,6 +69,20 @@ RUN cd /usr/src/ && tar -xf php.tar.xz && cp -rf php-${PHP_VERSION}/* php && cd 
     pcntl && \
     rm -rf /usr/src/php*
 
+
+ENV COMPOSER_HOME /usr/local/
+ENV COMPOSER_BIN_DIR /usr/local/lib/composer/bin
+ENV PATH $PATH:/$COMPOSER_BIN_DIR
+
+RUN curl -s https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin/ --filename=composer && \
+    composer --no-plugins --no-scripts \
+             global require codeception/codeception:~2.3 \
+             squizlabs/php_codesniffer:~3.0 \
+             robmorgan/phinx:~0.8 && \
+    phpcs --config-set ignore_warnings_on_exit 1 && \
+    phpcs --config-set show_progress 1 && \
+    phpcs --config-set default_standard PSR2
+
 RUN addgroup -g 666 superuser && \
     echo '%superuser        ALL=(ALL)       NOPASSWD: ALL' >> /etc/sudoers
 
