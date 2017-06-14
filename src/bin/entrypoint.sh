@@ -22,8 +22,11 @@ cd ${WEB_ROOT}
 
 mkdir /usr/local/lib/php/session && chown ${WEB_USER}.${WEB_USER} /usr/local/lib/php/session
 
-if [ -f /usr/local/bin/entrypoint.d/*.sh ]; then
-    source /usr/local/bin/entrypoint.d/*.sh
+ENTRYPOINTS_ROOT=/usr/local/bin/entrypoint.d
+if [ -d $ENTRYPOINTS_ROOT ]; then
+    find $ENTRYPOINTS_ROOT -perm +1 -name '*.sh' | while read file; do
+        source $file
+    done
 fi
 
 case ${1} in
