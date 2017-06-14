@@ -2,10 +2,10 @@
 source /usr/local/bin/template.renderer.sh
 
 export COMPOSER_HOME=${COMPOSER_HOME:-/usr/local/lib/composer/}
-export COMPOSER_BIN_DIR=${COMPOSER_BIN_DIR:-}
+export COMPOSER_BIN_DIR=${COMPOSER_BIN_DIR:-/usr/local/lib/composer/bin}
 export COMPOSER_CACHE_DIR=${COMPOSER_CACHE_DIR:-/tmp/composer/cache/}
 export COMPOSER_NO_INTERACTION=${COMPOSER_NO_INTERACTION:-1}
-export PATH=${PATH}:/usr/local/lib/composer/bin
+export PATH=${PATH}:${COMPOSER_BIN_DIR}
 cmd=${@}
 
 export WEB_USER_UID=${WEB_USER_UID:-"1000"}
