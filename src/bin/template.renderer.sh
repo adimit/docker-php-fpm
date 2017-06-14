@@ -2,6 +2,7 @@
 
 function render()
 {
+    IFS='' # Keep spaces, see read(1)
     File="$1"
     while read -r line; do
         while [[ "$line" =~ (\$[\{\(]?[a-zA-Z_][a-zA-Z_0-9]*[\}\)]) ]]; do
